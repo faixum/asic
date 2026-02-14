@@ -397,7 +397,7 @@ export default function Home() {
                     <h3 className="text-2xl md:text-3xl font-bold mb-5" style={{ color: feature.textColor }}>
                       {feature.title}
                     </h3>
-                    <p className="text-lg mb-7" style={{ color: `${feature.textColor}CC` }}>
+                    <p className="text-lg mb-7" style={{ color: feature.textColor, opacity: 0.95 }}>
                       {feature.description}
                     </p>
                     <ul className="space-y-4">
@@ -450,7 +450,7 @@ export default function Home() {
                     <h3 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: program.textColor }}>
                       {program.name}
                     </h3>
-                    <p className="text-lg mb-8" style={{ color: `${program.textColor}CC` }}>
+                    <p className="text-lg mb-8" style={{ color: program.textColor, opacity: 0.95 }}>
                       {program.tagline}
                     </p>
                     <Button href={`/programs/${program.slug}`} variant={i === 0 ? 'primary' : 'outline'} className="w-fit">
