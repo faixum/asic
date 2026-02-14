@@ -11,15 +11,15 @@ import { useLanguage } from '@/contexts/LanguageContext';
 /* ─── Section Wrapper with Scroll Animation ─── */
 function ScrollReveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] as const }}
+      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
     >
       {children}
     </motion.div>
@@ -119,20 +119,13 @@ export default function Home() {
           HERO — The Innovation Pipeline
           ═══════════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24" style={{ background: 'linear-gradient(135deg, #0D1B2A 0%, #1A3A6B 40%, #2B5EA7 100%)' }}>
-        {/* Animated mesh gradient background */}
-        <div className="hero-mesh-bg" />
-
-        {/* Floating particles */}
-        <div className="absolute inset-0 pointer-events-none">
+        {/* Floating particles - hidden on mobile for performance */}
+        <div className="absolute inset-0 pointer-events-none hidden md:block">
           {[
             { w: 5, h: 5, top: 15, left: 10, bg: 'rgba(245,197,24,0.6)' },
             { w: 4, h: 4, top: 45, left: 75, bg: 'rgba(255,255,255,0.3)' },
             { w: 6, h: 6, top: 70, left: 25, bg: 'rgba(245,197,24,0.6)' },
             { w: 3, h: 3, top: 30, left: 85, bg: 'rgba(255,255,255,0.3)' },
-            { w: 5, h: 5, top: 80, left: 50, bg: 'rgba(245,197,24,0.6)' },
-            { w: 4, h: 4, top: 55, left: 15, bg: 'rgba(255,255,255,0.3)' },
-            { w: 6, h: 6, top: 20, left: 65, bg: 'rgba(245,197,24,0.6)' },
-            { w: 3, h: 3, top: 85, left: 90, bg: 'rgba(255,255,255,0.3)' },
           ].map((particle, i) => (
             <div
               key={i}
@@ -147,9 +140,8 @@ export default function Home() {
               }}
             />
           ))}
-          {/* Large ambient orbs */}
-          <div className="ambient-orb" style={{ width: 500, height: 500, top: '-15%', right: '-10%', background: 'radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 70%)' }} />
-          <div className="ambient-orb" style={{ width: 400, height: 400, bottom: '-15%', left: '-5%', background: 'radial-gradient(circle, rgba(43,94,167,0.15) 0%, transparent 70%)' }} />
+          {/* Large ambient orbs - reduced for performance */}
+          <div className="ambient-orb" style={{ width: 400, height: 400, top: '-15%', right: '-10%', background: 'radial-gradient(circle, rgba(245,197,24,0.06) 0%, transparent 70%)', willChange: 'transform' }} />
         </div>
 
         <Container>
@@ -157,9 +149,9 @@ export default function Home() {
             {/* Left — Text Content (6 columns) */}
             <div className="lg:col-span-6">
               <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as const }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
               >
                 <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black text-white leading-[1.2] mb-6 sm:mb-8">
                   ASIATECH SCHOOL OF{' '}
@@ -187,19 +179,19 @@ export default function Home() {
             <div className="lg:col-span-6 mt-8 lg:mt-0">
               <motion.div
                 className="relative"
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as const }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl" style={{ boxShadow: '0 0 80px rgba(245,197,24,0.15)' }}>
+                <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl" style={{ boxShadow: '0 0 60px rgba(245,197,24,0.1)' }}>
                   <img
                     src="/images/hero-innovation.png"
                     alt="Innovation to Commercialization"
                     className="w-full h-auto"
+                    loading="eager"
+                    decoding="async"
                   />
                 </div>
-                {/* Floating glow behind image */}
-                <div className="absolute -inset-4 sm:-inset-8 rounded-full blur-3xl opacity-20" style={{ background: 'radial-gradient(circle, #F5C518 0%, transparent 70%)' }} />
               </motion.div>
             </div>
           </div>
@@ -207,26 +199,23 @@ export default function Home() {
           {/* ─── Innovation Pipeline ─── */}
           <motion.div
             className="mt-16 sm:mt-20 md:mt-24 relative z-10"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="pipeline-container">
               <div className="pipeline-line" />
-              <div className="pipeline-line-glow" />
-              <div className="pipeline-dot-flow" />
+              <div className="pipeline-line-glow hidden md:block" />
+              <div className="pipeline-dot-flow hidden md:block" />
               <div className="flex justify-between relative z-10">
                 {pipelineSteps.map((step, i) => (
-                  <motion.div
+                  <div
                     key={i}
                     className="pipeline-step"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
                   >
                     <div className="pipeline-icon">{step.icon}</div>
                     <span className="pipeline-label">{step.label}</span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -260,6 +249,8 @@ export default function Home() {
                   src="/images/mission-bridge.png"
                   alt="Bridging Innovation to Market"
                   className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -416,6 +407,8 @@ export default function Home() {
                       src={feature.image}
                       alt={feature.title}
                       className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>
@@ -462,6 +455,8 @@ export default function Home() {
                       src={program.image}
                       alt={program.name}
                       className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>
