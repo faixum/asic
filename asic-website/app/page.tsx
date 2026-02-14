@@ -118,7 +118,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════════
           HERO — The Innovation Pipeline
           ═══════════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden pt-32 pb-24" style={{ background: 'linear-gradient(135deg, #0D1B2A 0%, #1A3A6B 40%, #2B5EA7 100%)' }}>
+      <section className="relative overflow-hidden pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24" style={{ background: 'linear-gradient(135deg, #0D1B2A 0%, #1A3A6B 40%, #2B5EA7 100%)' }}>
         {/* Animated mesh gradient background */}
         <div className="hero-mesh-bg" />
 
@@ -153,7 +153,7 @@ export default function Home() {
         </div>
 
         <Container>
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+          <div className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-center relative z-10">
             {/* Left — Text Content (6 columns) */}
             <div className="lg:col-span-6">
               <motion.div
@@ -161,18 +161,18 @@ export default function Home() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as const }}
               >
-                <h1 className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black text-white leading-[1.15] mb-8">
+                <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black text-white leading-[1.2] mb-6 sm:mb-8">
                   ASIATECH SCHOOL OF{' '}
-                  <br className="hidden sm:block" />
+                  <br className="hidden xs:block" />
                   INNOVATION <span className="text-gold-gradient">&amp;</span>{' '}
-                  <br className="hidden sm:block" />
+                  <br className="hidden xs:block" />
                   <span className="text-gold-gradient">COMMERCIALIZATION</span>{' '}
                   <span className="text-gold-gradient">(ASIC)</span>
                 </h1>
-                <p className="text-lg md:text-xl text-white/70 mb-10 leading-relaxed max-w-lg">
+                <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 sm:mb-10 leading-relaxed">
                   {content.hero.description}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Button href="/programs" variant="secondary">
                     {content.ctas.secondary}
                   </Button>
@@ -184,14 +184,14 @@ export default function Home() {
             </div>
 
             {/* Right — Hero Image (6 columns) */}
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-6 mt-8 lg:mt-0">
               <motion.div
                 className="relative"
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as const }}
               >
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ boxShadow: '0 0 80px rgba(245,197,24,0.15)' }}>
+                <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl" style={{ boxShadow: '0 0 80px rgba(245,197,24,0.15)' }}>
                   <img
                     src="/images/hero-innovation.png"
                     alt="Innovation to Commercialization"
@@ -199,14 +199,14 @@ export default function Home() {
                   />
                 </div>
                 {/* Floating glow behind image */}
-                <div className="absolute -inset-8 rounded-full blur-3xl opacity-20" style={{ background: 'radial-gradient(circle, #F5C518 0%, transparent 70%)' }} />
+                <div className="absolute -inset-4 sm:-inset-8 rounded-full blur-3xl opacity-20" style={{ background: 'radial-gradient(circle, #F5C518 0%, transparent 70%)' }} />
               </motion.div>
             </div>
           </div>
 
           {/* ─── Innovation Pipeline ─── */}
           <motion.div
-            className="mt-24 relative z-10"
+            className="mt-16 sm:mt-20 md:mt-24 relative z-10"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const }}
