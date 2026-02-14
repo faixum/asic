@@ -1,0 +1,680 @@
+@import "tailwindcss";
+
+@theme {
+  /* ASIC Brand Colors — Navy Blue / White / Gold Yellow */
+  --color-primary: #1A3A6B;
+  --color-primary-dark: #0D1B2A;
+  --color-primary-light: #2B5EA7;
+
+  --color-accent: #F5C518;
+  --color-accent-dark: #D4A910;
+  --color-accent-light: #FFD84D;
+
+  --color-bg: #FFFFFF;
+  --color-bg-dark: #0D1B2A;
+  --color-bg-muted: #F0F4F8;
+
+  /* 8pt Grid System for consistent spacing */
+  --spacing-unit: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Targeted reset — don't reset margin on all elements to avoid
+   overriding Tailwind utilities like mx-auto */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #1A3A6B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Glassmorphism Header ─── */
+.header-glass {
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-glass.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 30px rgba(13, 27, 42, 0.08);
+  border-bottom: 1px solid rgba(26, 58, 107, 0.08);
+}
+
+/* ─── Hamburger Animation ─── */
+.hamburger-line {
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: #1A3A6B;
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.hamburger-active .hamburger-line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-active .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-active .hamburger-line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ─── Fullscreen Overlay ─── */
+.overlay-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+}
+
+.overlay-left {
+  background: #0D1B2A;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.overlay-right {
+  width: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1A3A6B 0%, #0D1B2A 40%, #1A3A6B 60%, #F5C518 100%);
+}
+
+.overlay-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(245, 197, 24, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 30% 70%, rgba(43, 94, 167, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(245, 197, 24, 0.15) 0%, transparent 40%);
+}
+
+/* Animated orbs in the right panel */
+.overlay-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.overlay-orb-1 {
+  width: 300px;
+  height: 300px;
+  background: rgba(245, 197, 24, 0.25);
+  top: 10%;
+  right: -5%;
+  animation-delay: 0s;
+}
+
+.overlay-orb-2 {
+  width: 200px;
+  height: 200px;
+  background: rgba(43, 94, 167, 0.35);
+  bottom: 20%;
+  left: 10%;
+  animation-delay: -3s;
+}
+
+.overlay-orb-3 {
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.08);
+  top: 50%;
+  right: 30%;
+  animation-delay: -5s;
+}
+
+@keyframes orbFloat {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(20px, -30px) scale(1.05);
+  }
+
+  50% {
+    transform: translate(-10px, 20px) scale(0.95);
+  }
+
+  75% {
+    transform: translate(15px, 10px) scale(1.02);
+  }
+}
+
+/* ─── Nav Link Styling ─── */
+.nav-link {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  letter-spacing: -0.02em;
+}
+
+.nav-link:hover,
+.nav-link-active {
+  color: #FFFFFF;
+  text-shadow: 0 0 30px rgba(245, 197, 24, 0.4);
+  transform: translateX(10px);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.3rem;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #F5C518, transparent);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover::after,
+.nav-link-active::after {
+  width: 60%;
+}
+
+/* ─── Close Button ─── */
+.close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 110;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.close-btn:hover {
+  background: rgba(245, 197, 24, 0.15);
+  border-color: rgba(245, 197, 24, 0.4);
+  transform: rotate(90deg);
+}
+
+/* ─── Hero Particles ─── */
+.hero-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particleFloat 6s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateY(-40px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ─── Gradient Divider ─── */
+.gradient-divider {
+  height: 3px;
+  background: linear-gradient(90deg, #1A3A6B, #F5C518, #1A3A6B);
+  border: none;
+}
+
+/* ─── Card Hover Effect ─── */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(26, 58, 107, 0.08);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(26, 58, 107, 0.12);
+  border-color: rgba(245, 197, 24, 0.3);
+}
+
+/* ─── Section Styling ─── */
+.section-accent-bg {
+  background: linear-gradient(135deg, #0D1B2A 0%, #1A3A6B 100%);
+}
+
+.section-muted-bg {
+  background: #F0F4F8;
+}
+
+/* ─── Mobile Overlay ─── */
+@media (max-width: 768px) {
+  .overlay-left {
+    width: 100%;
+    padding: 5rem 2rem 2rem;
+  }
+
+  .overlay-right {
+    display: none;
+  }
+
+  .nav-link {
+    font-size: 1.8rem;
+  }
+}
+
+/* ─── Scrollbar Styling ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F0F4F8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1A3A6B;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2B5EA7;
+}
+
+/* ─── Body lock when menu is open ─── */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HOMEPAGE PREMIUM STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Gold Gradient Text ─── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F5C518 0%, #FFD84D 40%, #E8A317 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Hero Mesh Background ─── */
+.hero-mesh-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(245, 197, 24, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(43, 94, 167, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(245, 197, 24, 0.04) 0%, transparent 40%);
+  animation: meshShift 20s ease-in-out infinite;
+}
+
+@keyframes meshShift {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* ─── Ambient Orb ─── */
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ─── Innovation Pipeline ─── */
+.pipeline-container {
+  position: relative;
+  padding: 2.5rem 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pipeline-line {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-50%);
+  border-radius: 1px;
+}
+
+.pipeline-line-glow {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F5C518, transparent);
+  transform: translateY(-50%);
+  border-radius: 1px;
+  opacity: 0.5;
+  animation: pipelineGlow 3s ease-in-out infinite;
+}
+
+.pipeline-dot-flow {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  width: 8px;
+  height: 8px;
+  background: #F5C518;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  animation: dotFlow 4s linear infinite;
+  box-shadow: 0 0 12px rgba(245, 197, 24, 0.8);
+}
+
+@keyframes pipelineGlow {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes dotFlow {
+  0% {
+    left: 5%;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 95%;
+    opacity: 0;
+  }
+}
+
+.pipeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pipeline-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(245, 197, 24, 0.3);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.pipeline-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: rgba(245, 197, 24, 0.9);
+  stroke-width: 2;
+}
+
+.pipeline-step:hover .pipeline-icon {
+  background: rgba(245, 197, 24, 0.15);
+  border-color: rgba(245, 197, 24, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(245, 197, 24, 0.2);
+}
+
+.pipeline-step:hover .pipeline-icon svg {
+  stroke: #F5C518;
+}
+
+.pipeline-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+/* ─── Mega Card ─── */
+.mega-card {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.mega-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+}
+
+/* ─── Talent Card (Glassmorphism) ─── */
+.talent-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(245, 197, 24, 0.15);
+  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.talent-card:hover {
+  background: rgba(245, 197, 24, 0.08);
+  border-color: rgba(245, 197, 24, 0.5);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(245, 197, 24, 0.15);
+}
+
+.talent-card-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s ease;
+}
+
+.talent-card-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: rgba(245, 197, 24, 0.9);
+  stroke-width: 1.5;
+}
+
+.talent-card:hover .talent-card-icon {
+  transform: scale(1.15);
+}
+
+.talent-card:hover .talent-card-icon svg {
+  stroke: #F5C518;
+}
+
+/* ─── Audience Pill ─── */
+.audience-pill {
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  font-size: 1rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: default;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.audience-pill:hover {
+  background: rgba(245, 197, 24, 0.12);
+  border-color: rgba(245, 197, 24, 0.5);
+  color: #F5C518;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(245, 197, 24, 0.15);
+}
+
+/* ─── CTA Glow Button ─── */
+.cta-glow-btn {
+  animation: ctaPulse 3s ease-in-out infinite;
+}
+
+@keyframes ctaPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(245, 197, 24, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(245, 197, 24, 0.4), 0 0 80px rgba(245, 197, 24, 0.1);
+  }
+}
+
+/* ─── CTA Orbs Animation ─── */
+.cta-orb-1 {
+  animation: orbFloat 10s ease-in-out infinite;
+}
+
+.cta-orb-2 {
+  animation: orbFloat 12s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+/* ─── Tablet Responsiveness ─── */
+@media (max-width: 1024px) {
+  .mega-card {
+    border-radius: 20px !important;
+  }
+}
+
+/* ─── Mobile Responsiveness for Pipeline ─── */
+@media (max-width: 640px) {
+  .pipeline-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+
+  .pipeline-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pipeline-label {
+    font-size: 0.65rem;
+  }
+
+  .mega-card {
+    border-radius: 16px !important;
+  }
+
+  .audience-pill {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .talent-card {
+    padding: 1.5rem 1rem;
+    border-radius: 14px;
+  }
+
+  .talent-card-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .talent-card-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+}
