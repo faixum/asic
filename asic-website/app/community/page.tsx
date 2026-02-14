@@ -1,9 +1,13 @@
+'use client';
+
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import { getContent } from '@/lib/content';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function CommunityPage() {
-  const content = getContent('en');
+  const { language } = useLanguage();
+  const content = getContent(language);
 
   return (
     <div className="py-16">

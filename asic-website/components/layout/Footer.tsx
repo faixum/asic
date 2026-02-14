@@ -1,16 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import Container from '../ui/Container';
-import { getContent, Language, siteContent } from '@/lib/content';
+import { getContent, siteContent } from '@/lib/content';
 import { Facebook, Linkedin, Instagram, Twitter, Mail, Phone } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Footer() {
-  const pathname = usePathname();
-  const lang: Language = pathname.startsWith('/ms') ? 'ms' : 'en';
-  const content = getContent(lang);
-  const langPrefix = lang === 'ms' ? '/ms' : '';
+  const { language } = useLanguage();
+  const content = getContent(language);
 
   return (
     <footer style={{ background: '#0D1B2A' }} className="text-gray-400">
@@ -73,35 +71,32 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="text-white font-semibold mb-4">
-              {lang === 'en' ? 'Quick Links' : 'Pautan Pantas'}
+              {language === 'en' ? 'Quick Links' : 'Pautan Pantas'}
             </h4>
             <ul className="space-y-3 text-sm">
-              {content.navigation.main.slice(0, 4).map((item) => {
-                const href = item.href === '/' ? (langPrefix || '/') : `${langPrefix}${item.href}`;
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={href}
-                      className="hover:text-[#F5C518] transition-colors duration-300"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
+              {content.navigation.main.slice(0, 4).map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="hover:text-[#F5C518] transition-colors duration-300"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Programs */}
           <div>
             <h4 className="text-white font-semibold mb-4">
-              {lang === 'en' ? 'Programs' : 'Program'}
+              {language === 'en' ? 'Programs' : 'Program'}
             </h4>
             <ul className="space-y-3 text-sm">
               {content.programs.list.map((program) => (
                 <li key={program.id}>
                   <Link
-                    href={`${langPrefix}/programs/${program.slug}`}
+                    href={`/programs/${program.slug}`}
                     className="hover:text-[#F5C518] transition-colors duration-300"
                   >
                     {program.name}
@@ -114,7 +109,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h4 className="text-white font-semibold mb-4">
-              {lang === 'en' ? 'Contact Us' : 'Hubungi Kami'}
+              {language === 'en' ? 'Contact Us' : 'Hubungi Kami'}
             </h4>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
@@ -135,7 +130,7 @@ export default function Footer() {
         <div className="py-6 text-center text-sm" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <p className="text-gray-500">
             © {new Date().getFullYear()} {siteContent.brand.shortName}.
-            {lang === 'en' ? ' All rights reserved.' : ' Hak cipta terpelihara.'}
+            {language === 'en' ? ' All rights reserved.' : ' Hak cipta terpelihara.'}
           </p>
         </div>
       </Container>

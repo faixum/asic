@@ -4,16 +4,16 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import LanguageSwitcher from '../LanguageSwitcher';
-import { getContent, Language } from '@/lib/content';
+import { getContent } from '@/lib/content';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const lang: Language = pathname.startsWith('/ms') ? 'ms' : 'en';
-  const content = getContent(lang);
-  const langPrefix = lang === 'ms' ? '/ms' : '';
+  const { language } = useLanguage();
+  const content = getContent(language);
 
   // Track scroll for glassmorphism effect
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function Header() {
           <nav className="flex items-center justify-between py-5">
             {/* Logo */}
             <Link
-              href={langPrefix || '/'}
+              href="/"
               className="flex items-center group"
               onClick={closeMenu}
             >
@@ -167,8 +167,7 @@ export default function Header() {
               {/* Nav Links */}
               <nav className="flex flex-col gap-2">
                 {content.navigation.main.map((item, i) => {
-                  const href = item.href === '/' ? (langPrefix || '/') : `${langPrefix}${item.href}`;
-                  const isActive = pathname === href;
+                  const isActive = pathname === item.href;
 
                   return (
                     <motion.div
@@ -180,7 +179,7 @@ export default function Header() {
                       exit="exit"
                     >
                       <Link
-                        href={href}
+                        href={item.href}
                         className={`nav-link ${isActive ? 'nav-link-active' : ''}`}
                         onClick={closeMenu}
                       >

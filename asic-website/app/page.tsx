@@ -5,6 +5,7 @@ import Button from '@/components/ui/Button';
 import { getContent } from '@/lib/content';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 /* eslint-disable @next/next/no-img-element */
 
 /* ─── Section Wrapper with Scroll Animation ─── */
@@ -26,7 +27,8 @@ function ScrollReveal({ children, className = '', delay = 0 }: { children: React
 }
 
 export default function Home() {
-  const content = getContent('en');
+  const { language } = useLanguage();
+  const content = getContent(language);
 
   /* Pipeline steps with minimalist icons */
   const pipelineSteps = [
