@@ -72,9 +72,38 @@ export default function AdminPage() {
       return;
     }
 
+    // Convert Google Drive link to direct link
+    let imageSrc = newImage.src;
+    
+    // Check if it's a Google Drive link
+    if (imageSrc.includes('drive.google.com')) {
+      // Extract file ID from various Google Drive URL formats
+      let fileId = '';
+      
+      // Format: https://drive.google.com/file/d/FILE_ID/view
+      if (imageSrc.includes('/file/d/')) {
+        fileId = imageSrc.split('/file/d/')[1].split('/')[0];
+      }
+      // Format: https://drive.google.com/open?id=FILE_ID
+      else if (imageSrc.includes('open?id=')) {
+        fileId = imageSrc.split('open?id=')[1].split('&')[0];
+      }
+      // Format: https://drive.google.com/uc?id=FILE_ID
+      else if (imageSrc.includes('uc?id=')) {
+        fileId = imageSrc.split('uc?id=')[1].split('&')[0];
+      }
+      
+      if (fileId) {
+        // Convert to direct link
+        imageSrc = `https://drive.google.com/uc?export=view&id=${fileId}`;
+      }
+    }
+
     const image: GalleryImage = {
       id: Date.now().toString(),
-      ...newImage,
+      src: imageSrc,
+      alt: newImage.alt,
+      caption: newImage.caption,
     };
 
     const updatedImages = [...images, image];
@@ -175,6 +204,22 @@ export default function AdminPage() {
           <h2 className="text-xl font-bold mb-4" style={{ color: '#1A3A6B' }}>
             Add New Image
           </h2>
+          
+          {/* Instructions */}
+          <div className="mb-4 p-4 rounded-lg" style={{ background: '#F0F4F8' }}>
+            <p className="text-sm font-semibold mb-2" style={{ color: '#1A3A6B' }}>
+              📌 How to use Google Drive images:
+            </p>
+            <ol className="text-sm text-gray-700 space-y-1 ml-4 list-decimal">
+              <li>Upload image to Google Drive</li>
+              <li>Right-click → Get link → Change to "Anyone with the link"</li>
+              <li>Copy the link and paste below (will auto-convert to direct link)</li>
+            </ol>
+            <p className="text-xs text-gray-500 mt-2">
+              Supported formats: https://drive.google.com/file/d/FILE_ID/view or any Google Drive link
+            </p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-4 mb-4">
             <div>
               <label className="block text-sm font-medium mb-2">Image URL</label>
@@ -183,7 +228,7 @@ export default function AdminPage() {
                 value={newImage.src}
                 onChange={(e) => setNewImage({ ...newImage, src: e.target.value })}
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#F5C518]"
-                placeholder="/images/event-1.jpg"
+                placeholder="Google Drive link or /images/event.jpg"
               />
             </div>
             <div>
