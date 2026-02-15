@@ -5,10 +5,12 @@ import Container from '../ui/Container';
 import { getContent, siteContent } from '@/lib/content';
 import { Facebook, Linkedin, Instagram, Twitter, Mail, Phone } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useState } from 'react';
 
 export default function Footer() {
   const { language } = useLanguage();
   const content = getContent(language);
+  const [showCompanyDetails, setShowCompanyDetails] = useState(false);
 
   return (
     <footer style={{ background: '#0D1B2A' }} className="text-gray-400">
@@ -128,10 +130,44 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="py-6 text-center text-sm" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <p className="text-gray-500">
-            © {new Date().getFullYear()} {siteContent.brand.shortName}.
-            {language === 'en' ? ' All rights reserved.' : ' Hak cipta terpelihara.'}
-          </p>
+          <div className="relative inline-block">
+            <p 
+              className="text-gray-500 cursor-pointer transition-colors duration-300 hover:text-[#F5C518]"
+              onMouseEnter={() => setShowCompanyDetails(true)}
+              onMouseLeave={() => setShowCompanyDetails(false)}
+              onClick={() => setShowCompanyDetails(!showCompanyDetails)}
+            >
+              © {new Date().getFullYear()} {siteContent.brand.shortName}.
+              {language === 'en' ? ' All rights reserved.' : ' Hak cipta terpelihara.'}
+            </p>
+            
+            {/* Company Details Tooltip */}
+            {showCompanyDetails && (
+              <div 
+                className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-4 py-3 rounded-lg text-xs whitespace-nowrap z-50 animate-fadeIn"
+                style={{ 
+                  background: 'rgba(26,58,107,0.95)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                  border: '1px solid rgba(245,197,24,0.2)'
+                }}
+              >
+                <p className="text-white font-semibold mb-1">ASIATECH EDUCATION SDN. BHD.</p>
+                <p className="text-gray-300">1443045A</p>
+                {/* Arrow */}
+                <div 
+                  className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-px"
+                  style={{
+                    width: 0,
+                    height: 0,
+                    borderLeft: '6px solid transparent',
+                    borderRight: '6px solid transparent',
+                    borderTop: '6px solid rgba(26,58,107,0.95)',
+                  }}
+                />
+              </div>
+            )}
+          </div>
         </div>
       </Container>
     </footer>
