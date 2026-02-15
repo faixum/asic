@@ -21,6 +21,7 @@ export default function AdminPage() {
   const [error, setError] = useState('');
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [newImage, setNewImage] = useState({ src: '', alt: '', caption: '' });
+  const [convertedUrl, setConvertedUrl] = useState('');
 
   // Hardcoded credentials
   const ADMIN_USERNAME = 'asic_admin';
@@ -66,6 +67,48 @@ export default function AdminPage() {
     setPassword('');
   };
 
+  const convertGoogleDriveUrl = (url: string): string => {
+    if (!url.includes('drive.google.com')) {
+      return url;
+    }
+
+    let fileId = '';
+    
+    // Format: https://drive.google.com/file/d/FILE_ID/view
+    if (url.includes('/file/d/')) {
+      const parts = url.split('/file/d/');
+      if (parts[1]) {
+        fileId = parts[1].split('/')[0].split('?')[0];
+      }
+    }
+    // Format: https://drive.google.com/open?id=FILE_ID
+    else if (url.includes('open?id=')) {
+      fileId = url.split('open?id=')[1].split('&')[0];
+    }
+    // Format: https://drive.google.com/uc?id=FILE_ID
+    else if (url.includes('uc?id=')) {
+      fileId = url.split('uc?id=')[1].split('&')[0];
+    }
+    
+    if (fileId) {
+      return `https://drive.google.com/uc?export=view&id=${fileId}`;
+    }
+    
+    return url;
+  };
+
+  const handleUrlChange = (url: string) => {
+    setNewImage({ ...newImage, src: url });
+    
+    // Show converted URL preview
+    if (url.includes('drive.google.com')) {
+      const converted = convertGoogleDriveUrl(url);
+      setConvertedUrl(converted);
+    } else {
+      setConvertedUrl('');
+    }
+  };
+
   const handleAddImage = () => {
     if (!newImage.src || !newImage.alt) {
       alert('Please fill in image URL and alt text');
@@ -73,31 +116,7 @@ export default function AdminPage() {
     }
 
     // Convert Google Drive link to direct link
-    let imageSrc = newImage.src;
-    
-    // Check if it's a Google Drive link
-    if (imageSrc.includes('drive.google.com')) {
-      // Extract file ID from various Google Drive URL formats
-      let fileId = '';
-      
-      // Format: https://drive.google.com/file/d/FILE_ID/view
-      if (imageSrc.includes('/file/d/')) {
-        fileId = imageSrc.split('/file/d/')[1].split('/')[0];
-      }
-      // Format: https://drive.google.com/open?id=FILE_ID
-      else if (imageSrc.includes('open?id=')) {
-        fileId = imageSrc.split('open?id=')[1].split('&')[0];
-      }
-      // Format: https://drive.google.com/uc?id=FILE_ID
-      else if (imageSrc.includes('uc?id=')) {
-        fileId = imageSrc.split('uc?id=')[1].split('&')[0];
-      }
-      
-      if (fileId) {
-        // Convert to direct link
-        imageSrc = `https://drive.google.com/uc?export=view&id=${fileId}`;
-      }
-    }
+    const imageSrc = convertGoogleDriveUrl(newImage.src);
 
     const image: GalleryImage = {
       id: Date.now().toString(),
@@ -109,6 +128,9 @@ export default function AdminPage() {
     const updatedImages = [...images, image];
     saveImages(updatedImages);
     setNewImage({ src: '', alt: '', caption: '' });
+    setConvertedUrl('');
+    
+    alert('Image added successfully!');
   };
 
   const handleDeleteImage = (id: string) => {
@@ -221,27 +243,34 @@ export default function AdminPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 mb-4">
-            <div>
+            <div className="md:col-span-3">
               <label className="block text-sm font-medium mb-2">Image URL</label>
               <input
                 type="text"
                 value={newImage.src}
-                onChange={(e) => setNewImage({ ...newImage, src: e.target.value })}
+                onChange={(e) => handleUrlChange(e.target.value)}
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#F5C518]"
-                placeholder="Google Drive link or /images/event.jpg"
+                placeholder="https://drive.google.com/file/d/FILE_ID/view or /images/event.jpg"
               />
+              {convertedUrl && (
+                <div className="mt-2 p-3 rounded-lg bg-green-50 border border-green-200">
+                  <p className="text-xs font-medium text-green-800 mb-1">✅ Will be converted to:</p>
+                  <p className="text-xs text-green-700 break-all">{convertedUrl}</p>
+                </div>
+              )}
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Alt Text</label>
+              <label className="block text-sm font-medium mb-2">Alt Text *</label>
               <input
                 type="text"
                 value={newImage.alt}
                 onChange={(e) => setNewImage({ ...newImage, alt: e.target.value })}
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#F5C518]"
                 placeholder="Event description"
+                required
               />
             </div>
-            <div>
+            <div className="md:col-span-2">
               <label className="block text-sm font-medium mb-2">Caption</label>
               <input
                 type="text"
