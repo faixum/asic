@@ -4,8 +4,9 @@ import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import { getContent } from '@/lib/content';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import EventGallery from '@/components/sections/EventGallery';
 /* eslint-disable @next/next/no-img-element */
 
 /* ─── Section Wrapper with Scroll Animation ─── */
@@ -29,6 +30,31 @@ function ScrollReveal({ children, className = '', delay = 0 }: { children: React
 export default function Home() {
   const { language } = useLanguage();
   const content = getContent(language);
+
+  // Default gallery images
+  const defaultImages = [
+    { src: '/images/hero-innovation.png', alt: 'ASIC Event 1', caption: 'Innovation Workshop 2024' },
+    { src: '/images/feature-pathways.png', alt: 'ASIC Event 2', caption: 'TCA Certification Ceremony' },
+    { src: '/images/feature-mobility.png', alt: 'ASIC Event 3', caption: 'Cross-border Collaboration' },
+    { src: '/images/mission-bridge.png', alt: 'ASIC Event 4', caption: 'Industry Networking Session' },
+    { src: '/images/feature-assessment.png', alt: 'ASIC Event 5', caption: 'Readiness Assessment Program' },
+    { src: '/images/hero-innovation.png', alt: 'ASIC Event 6', caption: 'I4I Program Launch' },
+    { src: '/images/feature-pathways.png', alt: 'ASIC Event 7', caption: 'Community Meetup' },
+    { src: '/images/feature-mobility.png', alt: 'ASIC Event 8', caption: 'Edu-Tourism Programme' },
+  ];
+
+  // Load images from localStorage or use defaults
+  const [galleryImages, setGalleryImages] = useState(defaultImages);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('asic_gallery_images');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (parsed.length > 0) {
+        setGalleryImages(parsed);
+      }
+    }
+  }, []);
 
   /* Pipeline steps with minimalist icons */
   const pipelineSteps = [
@@ -463,6 +489,30 @@ export default function Home() {
               </ScrollReveal>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          EVENT GALLERY — Photo Showcase
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="py-32" style={{ background: '#F0F4F8' }}>
+        <Container>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1A3A6B' }}>
+                {language === 'en' ? 'Our Events & Activities' : 'Acara & Aktiviti Kami'}
+              </h2>
+              <p className="text-xl" style={{ color: '#2B5EA7' }}>
+                {language === 'en' 
+                  ? 'Moments from our innovation journey and community gatherings'
+                  : 'Detik-detik dari perjalanan inovasi dan perhimpunan komuniti kami'}
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <EventGallery images={galleryImages} />
+          </ScrollReveal>
         </Container>
       </section>
 
