@@ -49,20 +49,27 @@ export default function Home() {
 
   const loadGalleryImages = () => {
     const stored = localStorage.getItem('asic_gallery_images');
+    console.log('🔍 Loading gallery images from localStorage:', stored);
+    
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
+        console.log('✅ Parsed images:', parsed);
+        
         if (parsed.length > 0) {
           setGalleryImages(parsed);
+          console.log('✅ Set gallery images:', parsed.length, 'images');
         } else {
           setGalleryImages(defaultImages);
+          console.log('⚠️ No custom images, using defaults');
         }
       } catch (error) {
-        console.error('Error loading gallery images:', error);
+        console.error('❌ Error loading gallery images:', error);
         setGalleryImages(defaultImages);
       }
     } else {
       setGalleryImages(defaultImages);
+      console.log('⚠️ No localStorage data, using defaults');
     }
   };
 
@@ -540,6 +547,11 @@ export default function Home() {
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1A3A6B' }}>
                 {language === 'en' ? 'Our Events & Activities' : 'Acara & Aktiviti Kami'}
+                {isClient && (
+                  <span className="ml-3 text-lg font-normal" style={{ color: '#2B5EA7' }}>
+                    ({galleryImages.length})
+                  </span>
+                )}
               </h2>
               <p className="text-xl" style={{ color: '#2B5EA7' }}>
                 {language === 'en' 
