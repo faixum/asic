@@ -45,15 +45,54 @@ export default function Home() {
 
   // Load images from localStorage or use defaults
   const [galleryImages, setGalleryImages] = useState(defaultImages);
+  const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
+  const loadGalleryImages = () => {
     const stored = localStorage.getItem('asic_gallery_images');
     if (stored) {
-      const parsed = JSON.parse(stored);
-      if (parsed.length > 0) {
-        setGalleryImages(parsed);
+      try {
+        const parsed = JSON.parse(stored);
+        if (parsed.length > 0) {
+          setGalleryImages(parsed);
+        } else {
+          setGalleryImages(defaultImages);
+        }
+      } catch (error) {
+        console.error('Error loading gallery images:', error);
+        setGalleryImages(defaultImages);
       }
+    } else {
+      setGalleryImages(defaultImages);
     }
+  };
+
+  useEffect(() => {
+    // Mark as client-side
+    setIsClient(true);
+    
+    // Load images
+    loadGalleryImages();
+
+    // Listen for storage changes (when admin updates images)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'asic_gallery_images') {
+        loadGalleryImages();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also listen for focus (when returning from admin page)
+    const handleFocus = () => {
+      loadGalleryImages();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('focus', handleFocus);
+    };
   }, []);
 
   /* Pipeline steps with minimalist icons */
@@ -511,7 +550,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <EventGallery images={galleryImages} />
+            {isClient && <EventGallery images={galleryImages} />}
           </ScrollReveal>
         </Container>
       </section>
