@@ -447,6 +447,25 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
+          TRUST BADGES — Registered & Recognised
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="py-16" style={{ background: '#F0F4F8' }}>
+        <Container>
+          <ScrollReveal>
+            <div className="flex flex-col items-center">
+              <p className="text-sm font-semibold uppercase tracking-widest mb-8" style={{ color: '#2B5EA7' }}>
+                Registered &amp; Recognised By
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16">
+                <img src="/images/hrdf.jpeg" alt="HRD Corp Registered Training Provider" className="h-20 md:h-24 object-contain" />
+                <img src="/images/md-logo.png" alt="MD" className="h-14 md:h-18 object-contain" />
+              </div>
+            </div>
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
           FEATURES — Alternating Split Mega-Cards
           ═══════════════════════════════════════════════════════════ */}
       <section className="py-32" style={{ background: '#E8E0D8' }}>
