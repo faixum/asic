@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Container from '../ui/Container';
 import { getContent, siteContent } from '@/lib/content';
-import { Facebook, Linkedin, Instagram, Twitter, Mail, Phone } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Mail, Phone } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useState } from 'react';
 
@@ -39,7 +39,6 @@ export default function Footer() {
             <div className="flex gap-4">
               {[
                 { icon: Facebook, href: siteContent.contact.socialMedia.facebook },
-                { icon: Linkedin, href: siteContent.contact.socialMedia.linkedin },
                 { icon: Instagram, href: siteContent.contact.socialMedia.instagram },
                 { icon: Twitter, href: siteContent.contact.socialMedia.twitter },
               ].map(({ icon: Icon, href }, i) => (
@@ -98,7 +97,7 @@ export default function Footer() {
               {content.programs.list.map((program) => (
                 <li key={program.id}>
                   <Link
-                    href={`/programs/${program.slug}`}
+                    href="/programs"
                     className="hover:text-[#F5C518] transition-colors duration-300"
                   >
                     {program.name}

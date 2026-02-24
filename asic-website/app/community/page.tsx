@@ -104,7 +104,7 @@ export default function CommunityPage() {
       <section className="py-32" style={{ background: '#F0F4F8' }}>
         <Container>
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16" style={{ color: '#1A3A6B' }}>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-20" style={{ color: '#1A3A6B' }}>
               {language === 'en' ? 'Community Benefits' : 'Manfaat Komuniti'}
             </h2>
           </ScrollReveal>
@@ -174,11 +174,11 @@ export default function CommunityPage() {
 
         <Container>
           <ScrollReveal>
-            <div className="text-center relative z-10">
+            <div className="flex flex-col items-center justify-center relative z-10 text-center">
               <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
                 {language === 'en' ? 'Join the ASIC Community' : 'Sertai Komuniti ASIC'}
               </h2>
-              <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg text-white/80 mb-10 max-w-2xl leading-relaxed">
                 {language === 'en' 
                   ? 'Connect with innovators, researchers, and entrepreneurs across Asia. Be part of a community that transforms ideas into impact.'
                   : 'Berhubung dengan inovator, penyelidik, dan usahawan di seluruh Asia. Jadilah sebahagian daripada komuniti yang mengubah idea kepada impak.'}

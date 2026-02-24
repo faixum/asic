@@ -57,6 +57,7 @@ export const siteContent = {
               "Investor communication",
               "Commercial strategy mapping",
             ],
+            contactNote: "For more information or collaboration, please email to hello@asiatech.ltd.",
             category: "certification",
           },
           {
@@ -73,7 +74,8 @@ export const siteContent = {
               "Impact measurement",
               "Ecosystem engagement",
             ],
-            recognition: "Participants completing I4I (with practical output) earn recognition as Innovation Associates.",
+            recognition: "Participants completing I4I (with practical output) earn recognition as Innovation Associates (IA).",
+            contactNote: "For more information or collaboration, please email to hello@asiatech.ltd.",
             category: "training",
           },
           {
@@ -91,7 +93,27 @@ export const siteContent = {
               "Cultural & ecosystem learning",
             ],
             philosophy: "We believe commercialization thrives when talents experience ecosystems beyond their own borders.",
+            contactNote: "For more information or collaboration, please email to hello@asiatech.ltd.",
             category: "immersion",
+          },
+          {
+            id: "finance-shariah",
+            emoji: "🏛️",
+            name: "Finance & Shariah Innovation Programmes",
+            slug: "finance-shariah",
+            tagline: "ASIC goes beyond technology and market strategy.",
+            description: "In collaboration with Amanie Academy, we design Finance & Shariah Innovation Programmes that strengthen ethical financing, governance, and sustainable commercialization across industries.",
+            learningOutcomes: [
+              "Islamic finance & Shariah governance training",
+              "Value-based intermediation frameworks",
+              "Shariah-compliant commercialization pathways",
+              "Halal industry structuring & advisory",
+              "Social finance & impact-driven funding models",
+              "Leadership programmes for emerging finance professionals",
+            ],
+            philosophy: "We believe innovation thrives when it is supported by strong governance, ethical financing, and sustainable value creation.",
+            contactNote: "For more information or collaboration, please email to hello@asiatech.ltd.",
+            category: "finance",
           },
         ],
       },
@@ -301,6 +323,24 @@ export const siteContent = {
             philosophy: "Kami percaya pengkomersilan berkembang apabila bakat mengalami ekosistem di luar sempadan mereka sendiri.",
             category: "immersion",
           },
+          {
+            id: "finance-shariah",
+            emoji: "🏛️",
+            name: "Program Inovasi Kewangan & Syariah",
+            slug: "finance-shariah",
+            tagline: "ASIC melampaui teknologi dan strategi pasaran.",
+            description: "Dengan kerjasama Amanie Academy, kami mereka Program Inovasi Kewangan & Syariah yang mengukuhkan pembiayaan beretika, tadbir urus, dan pengkomersilan mampan merentas industri.",
+            learningOutcomes: [
+              "Latihan kewangan Islam & tadbir urus Syariah",
+              "Rangka kerja pengantaraan berasaskan nilai",
+              "Laluan pengkomersilan patuh Syariah",
+              "Penstrukturan & nasihat industri halal",
+              "Model pembiayaan kewangan sosial & berimpak",
+              "Program kepimpinan untuk profesional kewangan baharu",
+            ],
+            philosophy: "Kami percaya inovasi berkembang apabila disokong oleh tadbir urus yang kukuh, pembiayaan beretika, dan penciptaan nilai mampan.",
+            category: "finance",
+          },
         ],
       },
 
@@ -431,7 +471,7 @@ export const siteContent = {
 
   // Contact Information (same for both languages)
   contact: {
-    email: "suzy.asiatech@gmail.com",
+    email: "hello@asiatech.ltd",
     phone: "+60 19-310 6657",
     address: {
       street: "Address Line 1",
@@ -441,8 +481,7 @@ export const siteContent = {
       country: "Malaysia",
     },
     socialMedia: {
-      facebook: "https://facebook.com/asic",
-      linkedin: "https://linkedin.com/company/asic",
+      facebook: "https://www.facebook.com/asiatecheducation",
       instagram: "https://instagram.com/asic_malaysia",
       twitter: "https://twitter.com/asic_malaysia",
     },
@@ -466,6 +505,7 @@ export interface Program {
   activities?: string[];
   recognition?: string;
   philosophy?: string;
+  contactNote?: string;
   category: string;
 }
 

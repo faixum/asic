@@ -6,6 +6,7 @@ import { getContent } from '@/lib/content';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Award, Lightbulb, Globe, Landmark } from 'lucide-react';
 import EventGallery from '@/components/sections/EventGallery';
 /* eslint-disable @next/next/no-img-element */
 
@@ -173,16 +174,25 @@ export default function Home() {
     },
   ];
 
+  const homeProgramIcons = [
+    <Award key="tca" className="w-10 h-10" strokeWidth={1.5} />,
+    <Lightbulb key="i4i" className="w-10 h-10" strokeWidth={1.5} />,
+    <Globe key="mobility" className="w-10 h-10" strokeWidth={1.5} />,
+    <Landmark key="finance" className="w-10 h-10" strokeWidth={1.5} />,
+  ];
+
   /* Program cards */
   const programCards = content.programs.list.map((program, i) => ({
     ...program,
-    image: ['/images/feature-pathways.png', '/images/hero-innovation.png', '/images/feature-mobility.png'][i],
+    icon: homeProgramIcons[i],
+    image: ['/images/feature-pathways.png', '/images/hero-innovation.png', '/images/feature-mobility.png', '/images/feature-assessment.png'][i],
     gradient: [
       'linear-gradient(135deg, #F5C518 0%, #E8A317 50%, #D4910F 100%)',
       'linear-gradient(135deg, #1A3A6B 0%, #0D1B2A 100%)',
       'linear-gradient(135deg, #2B5EA7 0%, #1A8A7A 100%)',
+      'linear-gradient(135deg, #0D4B3C 0%, #1A6B4A 50%, #2B8A5E 100%)',
     ][i],
-    textColor: ['#0D1B2A', '#fff', '#fff'][i],
+    textColor: ['#0D1B2A', '#fff', '#fff', '#fff'][i],
   }));
 
   return (
@@ -360,9 +370,11 @@ export default function Home() {
 
         <Container>
           <ScrollReveal>
-            <p className="text-center text-white/70 mb-20 text-lg max-w-3xl mx-auto leading-relaxed">
-              We are a specialized commercialization school committed to developing:
-            </p>
+            <div className="flex justify-center">
+              <p className="text-center text-white/70 mb-20 text-lg max-w-3xl leading-relaxed">
+                We are a specialized commercialization school committed to developing:
+              </p>
+            </div>
           </ScrollReveal>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8 max-w-[1100px] mx-auto">
@@ -443,7 +455,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#1A3A6B' }}>
               {content.differentiators.title.replace('🎯 ', '')}
             </h2>
-            <p className="text-xl text-center mb-14" style={{ color: '#2B5EA7' }}>
+            <p className="text-lg md:text-xl font-medium text-center mb-20" style={{ color: '#2B5EA7' }}>
               {content.differentiators.description}
             </p>
           </ScrollReveal>
@@ -512,14 +524,15 @@ export default function Home() {
                   style={{ borderRadius: 20, background: program.gradient }}
                 >
                   <div className={`p-10 sm:p-14 lg:p-16 xl:p-20 flex flex-col justify-center ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+                    <div className="mb-6" style={{ color: program.textColor }}>{program.icon}</div>
                     <h3 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: program.textColor }}>
                       {program.name}
                     </h3>
                     <p className="text-lg mb-8" style={{ color: program.textColor, opacity: 0.95 }}>
                       {program.tagline}
                     </p>
-                    <Button href={`/programs/${program.slug}`} variant={i === 0 ? 'primary' : 'outline'} className="w-fit">
-                      Learn More →
+                    <Button href="/contact" variant={i === 0 ? 'primary' : 'outline'} className="w-fit">
+                      Contact Us for More Details →
                     </Button>
                   </div>
                   <div className={`relative h-[300px] sm:h-[350px] lg:h-auto lg:min-h-[420px] overflow-hidden ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
@@ -539,9 +552,9 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          EVENT GALLERY — Photo Showcase
+          EVENT GALLERY — Photo Showcase (HIDDEN: client belum ada gambar)
           ═══════════════════════════════════════════════════════════ */}
-      <section className="py-32" style={{ background: '#F0F4F8' }}>
+      {/* <section className="py-32" style={{ background: '#F0F4F8' }}>
         <Container>
           <ScrollReveal>
             <div className="text-center mb-16">
@@ -565,7 +578,7 @@ export default function Home() {
             {isClient && <EventGallery images={galleryImages} />}
           </ScrollReveal>
         </Container>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════════════════════
           VISION — Cinematic Statement
@@ -616,7 +629,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
                 Our <span className="text-gold-gradient">Vision</span>
               </h2>
-              <p className="text-xl md:text-2xl text-white/80 leading-relaxed">
+              <p className="text-xl md:text-2xl text-white/80 leading-relaxed" style={{ wordBreak: 'keep-all', overflowWrap: 'normal', hyphens: 'none' }}>
                 {content.vision.statement}
               </p>
             </div>
@@ -660,12 +673,12 @@ export default function Home() {
 
         <Container>
           <ScrollReveal>
-            <div className="text-center relative z-10">
+            <div className="flex flex-col items-center justify-center relative z-10 text-center">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
                 Ready to Transform<br />
                 <span className="text-gold-gradient">Innovation into Impact</span>?
               </h2>
-              <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
+              <p className="text-lg text-white/60 mb-10">
                 Join ASIC and be part of Asia&apos;s leading commercialization community
               </p>
               <Button href="/contact" variant="secondary" className="text-lg px-12 py-5 cta-glow-btn">

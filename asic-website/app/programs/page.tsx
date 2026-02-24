@@ -6,6 +6,7 @@ import { getContent } from '@/lib/content';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Award, Lightbulb, Globe, Landmark } from 'lucide-react';
 /* eslint-disable @next/next/no-img-element */
 
 function ScrollReveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -29,15 +30,24 @@ export default function ProgramsPage() {
   const { language } = useLanguage();
   const content = getContent(language);
 
+  const programIcons = [
+    <Award key="tca" className="w-10 h-10" strokeWidth={1.5} />,
+    <Lightbulb key="i4i" className="w-10 h-10" strokeWidth={1.5} />,
+    <Globe key="mobility" className="w-10 h-10" strokeWidth={1.5} />,
+    <Landmark key="finance" className="w-10 h-10" strokeWidth={1.5} />,
+  ];
+
   const programCards = content.programs.list.map((program, i) => ({
     ...program,
-    image: ['/images/feature-pathways.png', '/images/hero-innovation.png', '/images/feature-mobility.png'][i],
+    icon: programIcons[i],
+    image: ['/images/feature-pathways.png', '/images/hero-innovation.png', '/images/feature-mobility.png', '/images/feature-assessment.png'][i],
     gradient: [
       'linear-gradient(135deg, #F5C518 0%, #E8A317 50%, #D4910F 100%)',
       'linear-gradient(135deg, #1A3A6B 0%, #0D1B2A 100%)',
       'linear-gradient(135deg, #2B5EA7 0%, #1A8A7A 100%)',
+      'linear-gradient(135deg, #0D4B3C 0%, #1A6B4A 50%, #2B8A5E 100%)',
     ][i],
-    textColor: ['#0D1B2A', '#fff', '#fff'][i],
+    textColor: ['#0D1B2A', '#fff', '#fff', '#fff'][i],
   }));
 
   return (
@@ -67,7 +77,7 @@ export default function ProgramsPage() {
 
         <Container>
           <motion.div
-            className="text-center relative z-10"
+            className="flex flex-col items-center justify-center relative z-10 text-center"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -75,7 +85,7 @@ export default function ProgramsPage() {
             <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
               {language === 'en' ? 'Our Flagship Programs' : 'Program Utama Kami'}
             </h1>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-white/80 max-w-3xl leading-relaxed">
               {content.programs.intro}
             </p>
           </motion.div>
@@ -94,7 +104,7 @@ export default function ProgramsPage() {
                 >
                   {/* Text Content */}
                   <div className={`p-10 sm:p-14 lg:p-16 xl:p-20 flex flex-col justify-center ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
-                    <div className="text-5xl mb-6">{program.emoji}</div>
+                    <div className="mb-6" style={{ color: program.textColor }}>{program.icon}</div>
                     <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: program.textColor }}>
                       {program.name}
                     </h2>
@@ -148,8 +158,22 @@ export default function ProgramsPage() {
                       </div>
                     )}
 
-                    <Button href={`/programs/${program.slug}`} variant={i === 0 ? 'primary' : 'outline'} className="w-fit">
-                      {language === 'en' ? 'Learn More' : 'Ketahui Lebih Lanjut'} →
+                    {/* Philosophy */}
+                    {program.philosophy && (
+                      <p className="text-sm italic mb-8" style={{ color: program.textColor, opacity: 0.85 }}>
+                        {program.philosophy}
+                      </p>
+                    )}
+
+                    {/* Contact Note */}
+                    {program.contactNote && (
+                      <p className="text-sm mb-8" style={{ color: program.textColor, opacity: 0.8 }}>
+                        📧 {program.contactNote}
+                      </p>
+                    )}
+
+                    <Button href="/contact" variant={i === 0 ? 'primary' : 'outline'} className="w-fit">
+                      {language === 'en' ? 'Contact Us for More Details' : 'Hubungi Kami untuk Maklumat Lanjut'} →
                     </Button>
                   </div>
 
@@ -176,11 +200,11 @@ export default function ProgramsPage() {
 
         <Container>
           <ScrollReveal>
-            <div className="text-center relative z-10">
+            <div className="flex flex-col items-center justify-center relative z-10 text-center">
               <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
                 {language === 'en' ? 'Ready to Start Your Journey?' : 'Bersedia Memulakan Perjalanan Anda?'}
               </h2>
-              <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
+              <p className="text-lg text-white/60 mb-10">
                 {language === 'en' 
                   ? 'Join ASIC and transform your innovation into real impact'
                   : 'Sertai ASIC dan ubah inovasi anda kepada impak sebenar'}
