@@ -235,7 +235,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
               >
-                <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black text-white leading-[1.2] mb-6 sm:mb-8">
+                <h1 className="text-xl xs:text-2xl sm:text-3xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-black text-white leading-[1.2] mb-6 sm:mb-8 break-words">
                   ASIATECH SCHOOL OF{' '}
                   <br className="hidden xs:block" />
                   INNOVATION <span className="text-gold-gradient">&amp;</span>{' '}

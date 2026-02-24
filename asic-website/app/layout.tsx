@@ -15,6 +15,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "ASIC - Asia's Innovation Commercialization School | Malaysia",
   description: "ASIATECH SCHOOL OF INNOVATION & COMMERCIALIZATION (ASIC) - Building Asia's commercialization talents through TCA, I4I programs, and cross-border mobility.",
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export default function RootLayout({
