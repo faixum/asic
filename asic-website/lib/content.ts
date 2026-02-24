@@ -115,7 +115,7 @@ export const siteContent = {
             contactNote: "For more information or collaboration, please email to hello@asiatech.ltd.",
             category: "finance",
           },
-        ],
+        ] as Program[],
       },
 
       // Readiness Assessment
@@ -287,6 +287,7 @@ export const siteContent = {
               "Komunikasi pelabur",
               "Pemetaan strategi komersial",
             ],
+            contactNote: "Untuk maklumat lanjut atau kerjasama, sila emel ke hello@asiatech.ltd.",
             category: "certification",
           },
           {
@@ -304,6 +305,7 @@ export const siteContent = {
               "Penglibatan ekosistem",
             ],
             recognition: "Peserta yang melengkapkan I4I (dengan output praktikal) mendapat pengiktirafan sebagai Innovation Associates.",
+            contactNote: "Untuk maklumat lanjut atau kerjasama, sila emel ke hello@asiatech.ltd.",
             category: "training",
           },
           {
@@ -321,6 +323,7 @@ export const siteContent = {
               "Pembelajaran budaya & ekosistem",
             ],
             philosophy: "Kami percaya pengkomersilan berkembang apabila bakat mengalami ekosistem di luar sempadan mereka sendiri.",
+            contactNote: "Untuk maklumat lanjut atau kerjasama, sila emel ke hello@asiatech.ltd.",
             category: "immersion",
           },
           {
@@ -339,9 +342,10 @@ export const siteContent = {
               "Program kepimpinan untuk profesional kewangan baharu",
             ],
             philosophy: "Kami percaya inovasi berkembang apabila disokong oleh tadbir urus yang kukuh, pembiayaan beretika, dan penciptaan nilai mampan.",
+            contactNote: "Untuk maklumat lanjut atau kerjasama, sila emel ke hello@asiatech.ltd.",
             category: "finance",
           },
-        ],
+        ] as Program[],
       },
 
       // Readiness Assessment
