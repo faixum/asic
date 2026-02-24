@@ -20,7 +20,7 @@ export const siteContent = {
         tagline: "Building Asia's Commercialization Talents",
         subtitle: "Malaysia's Dedicated School for Innovation, Commercialization & Talent Mobility",
         quote: "Innovation without commercialization is only an idea.",
-        description: "At ASIC, we bridge the gap between research, technology, talent and market — transforming potential into real economic and social impact.",
+        description: "At ASIC, we bridge the gap between research, technology, talent and market, transforming potential into real economic and social impact.",
       },
 
       // What We Develop
