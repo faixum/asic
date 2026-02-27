@@ -190,7 +190,7 @@ export default function ReadinessPage() {
                   : 'Penilaian ini membantu peserta bergerak ke hadapan dengan kejelasan — bukan kekeliruan. Kami menggabungkan TRL, CRL, dan KAREERfit ke dalam pandangan holistik perjalanan inovasi anda.'}
               </p>
               <Button href="/contact" variant="secondary" className="text-lg px-12 py-5 cta-glow-btn">
-                {language === 'en' ? 'Take Your Assessment' : 'Ambil Penilaian Anda'}
+                {language === 'en' ? 'Contact Us' : 'Hubungi Kami'}
               </Button>
             </div>
           </ScrollReveal>
