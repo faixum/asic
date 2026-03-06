@@ -144,6 +144,41 @@ export default function CommunityPage() {
         </Container>
       </section>
 
+      {/* ═══════════════════════════════════════════════════════════
+          GALLERY — Our Events & Activities
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="py-32" style={{ background: '#E8E0D8' }}>
+        <Container>
+          <ScrollReveal>
+            <div className="flex flex-col items-center text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1A3A6B' }}>
+                {language === 'en' ? 'Our Events & Activities' : 'Acara & Aktiviti Kami'}
+              </h2>
+              <p className="text-base leading-relaxed max-w-4xl" style={{ color: '#2B5EA7' }}>
+                Each image documents evidence of our active role in innovation commercialization, training, and talent development. Each image reflects our hands-on engagement in transforming ideas into market-ready solutions through programmes, workshops, mentorship, and strategic partnerships with industry, academia, and government. Our initiatives focus on bridging innovation and industry, while equipping individuals with commercial mindset, practical skills, and strategic capabilities through structured learning and microcredential experiences. Together, these moments represent our commitment to cultivating innovation, strengthening capabilities, and driving real-world impact.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+            {Array.from({ length: 50 }, (_, i) => {
+              const num = String(i + 1).padStart(2, '0');
+              return (
+                <ScrollReveal key={i} delay={(i % 8) * 0.05}>
+                  <img
+                    src={`/gallery/asic-event-${num}.jpg`}
+                    alt={`ASIC Event ${i + 1}`}
+                    className="w-full rounded-lg break-inside-avoid"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
       {/* Tagline Section */}
       <section className="py-32 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1A3A6B 0%, #0D1B2A 100%)' }}>
         <div className="absolute inset-0 pointer-events-none">
